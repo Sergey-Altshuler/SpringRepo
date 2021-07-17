@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="notifier" class="com.altshuler.spring.Notifier">
+    </bean>
+    <bean id="walkingAlone" class="com.altshuler.spring.WalkingAlone">
+    </bean>
+    <bean id="walkingWithFamily" class="com.altshuler.spring.WalkingWithFamily">
+    </bean>
+    <bean id="walkingWithFriends" class="com.altshuler.spring.WalkingWithFriends">
+    </bean>
+
+    <bean id="rest" class="com.altshuler.spring.Rest">
+        <property name="ableToWalk" ref="walkingWithFamily"/>
+    </bean>
+    <aop:config>
+        <aop:aspect id="note" ref="notifier">
+            <aop:pointcut id="pointcut" expression="execution(public void com.altshuler.spring.Rest.walk())"/>
+            <aop:after method="notifyAfter" pointcut-ref="pointcut"/>
+            <aop:before method="notifyBefore" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
