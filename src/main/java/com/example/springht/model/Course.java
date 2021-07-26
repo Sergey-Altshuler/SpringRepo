@@ -1,5 +1,6 @@
 package com.example.springht.model;
 
+import com.example.springht.annotations.HallAnnotated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class Course {
     private String title;
     private List<Student> students;
     @Autowired
-    @Qualifier("hall")
+    @HallAnnotated
     private Audience audience;
 
     public void printStudents(){
