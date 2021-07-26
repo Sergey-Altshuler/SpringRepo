@@ -38,11 +38,11 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.spri
           p:title="courseMin" p:students="#{T(java.util.Collections).min(studentList)}">
     </bean>
 
-    <bean id="simpleAudience" class="com.example.springht.model.SimpleAudience"
+    <bean id="simpleAudience" class="com.example.springht.model.SimpleAudience" scope="prototype"
           p:number="3">
         <qualifier value="simpleAudience"/>
     </bean>
-    <bean id="hall" class="com.example.springht.model.Hall"
+    <bean id="hall" class="com.example.springht.model.Hall" scope="prototype"
           p:number="3" p:dimensions="20X10X5" p:floor="4">
         <qualifier value="hall"/>
     </bean>

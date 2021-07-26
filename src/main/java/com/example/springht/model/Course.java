@@ -1,12 +1,14 @@
 package com.example.springht.model;
 
 import com.example.springht.annotations.HallAnnotated;
+import com.example.springht.annotations.SimpleAudienceAnnotated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Data
@@ -15,7 +17,7 @@ import java.util.List;
 public class Course {
     private String title;
     private List<Student> students;
-    @Autowired
+    @Inject
     @HallAnnotated
     private Audience audience;
 
