@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -17,8 +18,7 @@ import java.util.List;
 public class Course {
     private String title;
     private List<Student> students;
-    @Inject
-    @HallAnnotated
+    @Value("#{simpleAudience}")
     private Audience audience;
 
     public void printStudents(){
