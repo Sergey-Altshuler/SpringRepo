@@ -1,17 +1,12 @@
 package com.example.springht;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Service("sendService")
 public class SendService {
-    private String message;
 
     public void send() {
-        System.out.println("Сообщение отправлено: " + message);
+        System.out.println("Сообщение отправлено: " + MessageConstants.MESSAGE);
     }
 
     public void sendException() throws Exception {

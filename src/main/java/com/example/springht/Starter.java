@@ -9,13 +9,13 @@ public class Starter {
         SendService service = context.getBean("sendService", SendService.class);
         Long start = System.currentTimeMillis();
         service.send();
+        Long finish = System.currentTimeMillis();
         try{
             service.sendException();
         }
         catch (Exception e) {
             System.out.println("Метод sendException отработал");
         }
-        Long finish = System.currentTimeMillis();
         System.out.println("Время выполнения метода send: " + (finish-start) + " миллисекунд");
         context.close();
     }
