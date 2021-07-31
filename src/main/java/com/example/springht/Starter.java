@@ -1,32 +1,25 @@
 package com.example.springht;
 
-import org.springframework.aop.framework.ProxyFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Starter {
-    private static SendService target;
-    private static SendService proxy;
-    private static final String MESSAGE = "Сообщение 1";
-
-    public static void init(){
-        target = new SendService();
-        ProxyFactory proxyFactory = new ProxyFactory();
-        proxyFactory.addAdvice(new MessageInterceptor());
-        proxyFactory.setTarget(target);
-        proxy = (SendService) proxyFactory.getProxy();
-    }
     public static void main(String[] args) {
-        init();
-        process(MESSAGE);
-        System.out.println("-------------");
-        processProxy(MESSAGE);
-        processProxy(MESSAGE);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("SpringConfig.xml");
+        SendService service = context.getBean("sendService", SendService.class);
+        Long start = System.currentTimeMillis();
+        service.send();
+        try{
+            service.sendException();
+        }
+        catch (Exception e) {
+            System.out.println("Метод sendException отработал");
+        }
+        Long finish = System.currentTimeMillis();
+        System.out.println("Время выполнения метода send: " + (finish-start) + " миллисекунд");
+        context.close();
+    }
 
-    }
-    public static void process (String message){
-        target.send(message);
-    }
-    public static void processProxy (String message){
-        proxy.send(message);
-    }
+
 
 }
