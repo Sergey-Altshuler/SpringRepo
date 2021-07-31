@@ -1,21 +1,32 @@
 package com.example.springht;
 
-import com.example.springht.model.Course;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.aop.framework.ProxyFactory;
 
 public class Starter {
-    private static final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("SpringConfig.xml");
+    private static SendService target;
+    private static SendService proxy;
+    private static final String MESSAGE = "Сообщение 1";
 
+    public static void init(){
+        target = new SendService();
+        ProxyFactory proxyFactory = new ProxyFactory();
+        proxyFactory.addAdvice(new MessageInterceptor());
+        proxyFactory.setTarget(target);
+        proxy = (SendService) proxyFactory.getProxy();
+    }
     public static void main(String[] args) {
-        displayCourse("courseMore5");
-        displayCourse("courseLess5");
-        displayCourse("courseMax");
-        displayCourse("courseMin");
+        init();
+        process(MESSAGE);
+        System.out.println("-------------");
+        processProxy(MESSAGE);
+        processProxy(MESSAGE);
+
+    }
+    public static void process (String message){
+        target.send(message);
+    }
+    public static void processProxy (String message){
+        proxy.send(message);
     }
 
-    private static void displayCourse(String beanName) {
-        Course course = context.getBean(beanName, Course.class);
-        System.out.println(course);
-        course.printStudents();
-    }
 }
