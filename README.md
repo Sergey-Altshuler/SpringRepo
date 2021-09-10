@@ -1,2 +1,2 @@
 # SpringRepo
-This repository comprises works with Spring framework
+This repository comprises tasks created using Spring framework
